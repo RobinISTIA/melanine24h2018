@@ -37,18 +37,31 @@ public class Game {
 		
 		return stream+"End";
 	}
-	
-	public String antAction(Ant ant, ArrayList<Pheromone> pheromoneList, ArrayList<Food> foodList, ArrayList<Nest> RecevideNestList, ArrayList<Ant> receivedAntList){
+	public String shortAntAction(Ant ant){
+		String stream = "";
+		return stream +"END";
+	}
+	public String detailledAntAction(Ant ant, ArrayList<Pheromone> pheromoneList, ArrayList<Food> foodList, ArrayList<Nest> RecevideNestList, ArrayList<Ant> receivedAntList){
 		String stream = "";
 		boolean actionExclusive = true;
 		
 		Ant antFound = getAnt(ant.getId());
 		if(ant.getId() != -1){
+			
 			if(foodList.size() != 0){
 				Food food = lookAtNearestFood(foodList);
-				if(food.ID != -1){
+				if(food.ID != -1 && ant.getFood() < 1000){
+					if(food.zone == Zone.NEAR)
+						stream += ant.collect(food.ID, min(1000-ant.getFood(), food.quantity)) + "\n";
 					
+					else
+						stream += ant.moveTo(food.ID) + "\n";	
+					
+					actionExclusive = false;
 				}
+			}
+			if(pheromoneList.size() != 0){
+				
 			}
 				
 		}
@@ -84,8 +97,20 @@ public class Game {
 		if(min != 32767)
 			return food.get(id);
 		
-		return new Food(-1, 0, Zone.DOESNTEXIST);
+		return new Food(-1, 0, 0, Zone.DOESNTEXIST);
 		
+	}
+	
+	public int min(int a, int b){
+		if(a<b)
+			return a;
+		return b;
+	}
+	
+	public int max(int a, int b){
+		if(a>b)
+			return a;
+		return b;
 	}
 	
 }
