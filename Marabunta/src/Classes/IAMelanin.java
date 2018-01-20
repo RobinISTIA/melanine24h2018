@@ -14,21 +14,43 @@ public class IAMelanin
 {
 
     private static int nbrFourmis = 0;
+    private static int nbrdehors = 0;
     private static int food = 200;
     private static String stream = "";
     private static int scenarioId = 1;
     private static ArrayList<Integer> antList = new ArrayList<Integer>();
+    private static String[] reception;
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
        System.out.println("Hello world");
+    	/*Game partie = new Game(0, 200);*/
+       	while(nbrFourmis < 3) {
+        	recoie();
+        	System.out.println("NEW_ANT 1 \n END");
+        	nbrFourmis ++;
+        	recoie();
+        	System.out.println("OUT_ANT 1 \n END");
+        	nbrdehors++;
+        	for(int i=0; i<nbrdehors; ++i) {
+           		recoie();
+           		System.out.println("EXPLORE \n END");
+           	}
+        	
+       	}
+       	while(true){
+       	for(int i=0; i<4; ++i) {
+       		if(i == 0) {
+       			System.out.println("END");
+       		}
+       		else {
+       			System.out.println("EXPLORE \n END");
+       		}
+       	}
+    }
+       	
     	
-    	/* while(true){
-            while(stream.length() < 100){
-             
-            }
-        }*/
          
     }
     
@@ -54,17 +76,13 @@ public class IAMelanin
         
     }
     
-    public void envoie(String[] cmds) {
-        if(cmds.length != 0) {
-           System.out.println("BEGIN");
-        } 
-        for(int i=0; i<cmds.length; i++) {
-            System.out.println(cmds[i]);
-        }
-        System.out.println("END");     
+    public void envoie(String _stream) {
+        
+       System.out.println(_stream);
+          
     }
     
-    public String[] recoie() {
+    public static String[] recoie() {
         Scanner sc = new Scanner(System.in);
         String[] reponse = null;
         int i = 0;
@@ -78,4 +96,5 @@ public class IAMelanin
         }
         return null;
     }
+    
 }

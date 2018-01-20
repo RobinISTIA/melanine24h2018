@@ -38,6 +38,7 @@ public class Game {
 		return stream+"End";
 	}
 	public String shortAntAction(Ant ant){
+		
 		String stream = "";
 		return stream +"END";
 	}
