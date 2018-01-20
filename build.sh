@@ -1,3 +1,3 @@
 #!/bin/bash
 
-javac $(find . -name "*.java")
+javac Marabunta/src/Classes/*.java

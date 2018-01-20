@@ -1,3 +1,3 @@
 #!/bin/bash
 
-java ma_strategie.jar < /dev/stdin
+java -cp Marabunta/src/ Classes.IAMelanin < /dev/stdin
