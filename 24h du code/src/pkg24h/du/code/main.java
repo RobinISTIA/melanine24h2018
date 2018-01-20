@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package pkg24h.du.code;
+package Classes;
 
 /**
  *
@@ -13,7 +13,7 @@ package pkg24h.du.code;
 
 import java.util.*;
 
-public class main
+public class IAMelanin
 {
 
     private static int nbrFourmis = 0;
