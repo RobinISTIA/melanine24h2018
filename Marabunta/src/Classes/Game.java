@@ -4,21 +4,22 @@ import java.util.*;
 
 public class Game {
 
-	private ArrayList<Nest> nestList;
+	private Nest myNest;
 	private ArrayList<Ant> antList;
 	private int maxAnt = 10;
 	private int nextAntId;
 	
 	public Game(int population, int food){
-		nestList.add(new Nest(population, food));
+		myNest = new Nest(population, food);
 		antList = new ArrayList<Ant>();
 		nextAntId = population;
 	}
 	
-	public String nestAction(int id){
+	public String nestAction(Nest nest){
 		String stream = "";
 		boolean actionExclusive = true;
-		Nest nest = nestList.get(id);
+		myNest.setFood(nest.getFood());
+		myNest.setPopulation(nest.getPopulation());
 		
 		if(actionExclusive && nest.getPopulation() > 0)
 		{
