@@ -8,6 +8,8 @@ public class Ant{
 	
 	private int mem0, mem1;
 	
+	public Ant(){}
+	
 	public Ant(int id){
 		this.id = id;
 		this.food = 0;

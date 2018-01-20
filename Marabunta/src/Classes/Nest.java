@@ -9,6 +9,8 @@ public class Nest{
 	private int[] memory;
 	private ArrayList<Ant> colony = null;
 	
+	public Nest(){}
+	
 	public Nest(int population, int food){
 		this.population = population;
 		this.food = food;
@@ -41,10 +43,17 @@ public class Nest{
 		int id = colony.get(0).getId();
 		colony.remove(0);
 		return id;
-		
 	}
 	
 	private void populate(){
 		for(int  i = 0; i < population; ++i) colony.add(new Ant(i));
 	}
+
+	public int[] getMemory() {
+		return memory;
+	}
+
+	public void setMemory(int[] memory) {
+		this.memory = memory;
+	}	
 }
