@@ -15,8 +15,8 @@ public class Game {
 		nextAntId = population;
 	}
 	
-	public String nestAction(Nest nest){
-		String stream = "";
+	public ArrayList<String> nestAction(Nest nest){
+		ArrayList<String> stream = new ArrayList<String>();
 		boolean actionExclusive = true;
 		myNest.setFood(nest.getFood());
 		myNest.setPopulation(nest.getPopulation());
@@ -25,26 +25,26 @@ public class Game {
 		{
 			int antId = nest.outAnt();
 			antList.add(new Ant(antId));
-			stream += "ANT_OUT "+antId+" 0 0 0\n";
+			stream.add("ANT_OUT "+antId+" 0 0 0\n");
 		}
 		
 		
 		if(nest.getPopulation() + antList.size() < maxAnt && actionExclusive){
 			nest.createAnt(nextAntId);
-			stream += "NEW_ANT "+nextAntId+"\n";
+			stream.add("NEW_ANT "+nextAntId+"\n");
 			actionExclusive = false;
 		}		
 		
-		
-		return stream+"End";
+		stream.add("End");
+		return stream;
 	}
 	public String shortAntAction(Ant ant){
 		
 		String stream = "";
 		return stream +"END";
 	}
-	public String detailledAntAction(Ant ant, ArrayList<Target> targets){
-		String stream = "";
+	public ArrayList<String> detailledAntAction(Ant ant, ArrayList<Target> targets){
+		ArrayList<String> stream = new ArrayList<String>();
 		boolean actionExclusive = true;
 		
 		ArrayList<Food> foodList = getFoods(targets);
@@ -57,10 +57,10 @@ public class Game {
 				Food food = lookAtNearestFood(foodList);
 				if(food.ID != -1 && ant.getFood() < 1000){
 					if(food.zone.equals("NEAR"))
-						stream += ant.collect(food.ID, min(1000-ant.getFood(), food.quantity)) + "\n";
+						stream.add(ant.collect(food.ID, min(1000-ant.getFood(), food.quantity)) + "\n");
 					
 					else
-						stream += ant.moveTo(food.ID) + "\n";	
+						stream.add(ant.moveTo(food.ID) + "\n");	
 					
 					actionExclusive = false;
 				}
@@ -69,9 +69,9 @@ public class Game {
 				Target t = lookAtNearestNests(targets, idxNestList);
 				if(t != null){
 					if(t.getZone().equals("NEAR"))
-						stream += ant.enterInTheNest(t.getId())+ "\n";
+						stream.add(ant.enterInTheNest(t.getId())+ "\n");
 					else
-						stream += ant.moveTo(t.getId()) + "\n";
+						stream.add(ant.moveTo(t.getId()) + "\n");
 					
 					actionExclusive = false;
 				}
@@ -80,19 +80,19 @@ public class Game {
 			
 			if(pheromoneList.size() != 0 && actionExclusive && ant.getFood()>500){
 				int idx = lookForOldestPheromone(pheromoneList);
-				stream += ant.moveTo(idx) + "\n";
+				stream.add(ant.moveTo(idx) + "\n");
 			}else if(actionExclusive){
-				stream += ant.explore() + "\n";
-				stream += ant.putPheromone(ant.getId())+"\n";
+				stream.add(ant.explore() + "\n");
+				stream.add(ant.putPheromone(ant.getId())+"\n");
 			}
 				
 		}
 		else{
-			stream += ant.explore()+"\n";
-			stream += ant.putPheromone(505)+"\n";
+			stream.add(ant.explore()+"\n");
+			stream.add(ant.putPheromone(505)+"\n");
 		}	
-		
-		return stream+"End";
+		stream.add("End");
+		return stream;
 	}
 	
 	public Ant getAnt(int id){
