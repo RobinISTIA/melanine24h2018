@@ -42,17 +42,20 @@ public class Game {
 		String stream = "";
 		return stream +"END";
 	}
-	public String detailledAntAction(Ant ant, ArrayList<Pheromone> pheromoneList, ArrayList<Food> foodList, ArrayList<Nest> RecevideNestList, ArrayList<Ant> receivedAntList){
+	public String detailledAntAction(Ant ant, ArrayList<Target> targets){
 		String stream = "";
 		boolean actionExclusive = true;
 		
+		ArrayList<Food> foodList = getFoods(targets);
+		ArrayList<Integer> idxNestList = getNests(targets);
+		ArrayList<Pheromone> pheromoneList = getPheromones(targets);
+		
 		Ant antFound = getAnt(ant.getId());
-		if(ant.getId() != -1){
-			
-			if(foodList.size() != 0){
+		if(antFound.getId() != -1){	
+			if(foodList.size() != 0 && actionExclusive){
 				Food food = lookAtNearestFood(foodList);
 				if(food.ID != -1 && ant.getFood() < 1000){
-					if(food.zone == Zone.NEAR)
+					if(food.zone.equals("NEAR"))
 						stream += ant.collect(food.ID, min(1000-ant.getFood(), food.quantity)) + "\n";
 					
 					else
@@ -61,8 +64,24 @@ public class Game {
 					actionExclusive = false;
 				}
 			}
-			if(pheromoneList.size() != 0){
-				
+			if(idxNestList.size() > 0 && actionExclusive && ant.getFood()>500){
+				Target t = lookAtNearestNests(targets, idxNestList);
+				if(t != null){
+					if(t.getZone().equals("NEAR"))
+						stream += ant.enterInTheNest(t.getId())+ "\n";
+					else
+						stream += ant.moveTo(t.getId()) + "\n";
+					
+					actionExclusive = false;
+				}
+					
+			}
+			
+			if(pheromoneList.size() != 0 && actionExclusive && ant.getFood()>500){
+				int idx = lookForOldestPheromone(pheromoneList);
+				stream += ant.moveTo(idx) + "\n";
+			}else if(actionExclusive){
+				stream += ant.explore() + "\n";
 			}
 				
 		}
@@ -98,8 +117,26 @@ public class Game {
 		if(min != 32767)
 			return food.get(id);
 		
-		return new Food(-1, 0, 0, Zone.DOESNTEXIST);
+		return new Food(-1, 0, 0, "DOESNTEXIST");
 		
+	}
+	
+	public Target lookAtNearestNests(ArrayList<Target> targets, ArrayList<Integer> idxNests){
+		Target t = null;
+		int idx = -1;
+		int dist = 32767;
+		
+		for(int i = 0; i < idxNests.size(); ++i){
+			if(targets.get(idxNests.get(i)).getDistance() < dist){
+				idx = idxNests.get(i);
+				dist = dist;
+			}
+		}
+		
+		if(idx != -1)
+			t = targets.get(idx);
+		
+		return t;
 	}
 	
 	public int min(int a, int b){
@@ -112,6 +149,53 @@ public class Game {
 		if(a>b)
 			return a;
 		return b;
+	}
+	
+	public ArrayList<Food> getFoods(ArrayList<Target> targets){
+		ArrayList<Food> foods = new ArrayList<Food>();
+		for (Iterator<Target> i = targets.iterator(); i.hasNext();) {
+		    Target item = i.next();
+		    if(item.getType() == Type.FOOD)
+		    	foods.add(new Food(item.getId(), item.getDistance(), item.getPersonalParameter(), item.getZone()));
+		}
+		
+		return foods;
+	}
+	
+	public ArrayList<Integer> getNests(ArrayList<Target> targets){
+		ArrayList<Integer> idxList = new ArrayList<Integer>();
+		for (int i = 0; i < targets.size(); ++i) {
+		    if(targets.get(i).getType() == Type.NEST)
+		    	idxList.add(i);
+		}
+		
+		return idxList;
+	}
+	
+	public ArrayList<Pheromone> getPheromones(ArrayList<Target> targets){
+		ArrayList<Pheromone> pheromones = new ArrayList<Pheromone>();
+		for (Iterator<Target> i = targets.iterator(); i.hasNext();) {
+		    Target item = i.next();
+		    if(item.getType() == Type.PHEROMONE)
+		    	pheromones.add(new Pheromone(item.getTypePheromone(), item.getId(), item.getPersonalParameter(), item.getDistance(), item.getZone()));
+		}
+		
+		return pheromones;
+	}
+	
+	public int lookForOldestPheromone(ArrayList<Pheromone> pheromones){
+		int id = -1;
+		int min = 32767;
+		for (Iterator<Pheromone> i = pheromones.iterator(); i.hasNext();) {
+			Pheromone item = i.next();
+		    if(min > item.persistence){
+		    	id = item.ID;
+		    	min = item.persistence;
+		    }
+		}
+		
+		
+		return id;
 	}
 	
 }
