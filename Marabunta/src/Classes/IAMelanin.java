@@ -118,15 +118,11 @@ public class IAMelanin
         Scanner sc = new Scanner(System.in);
         String[] reponse = null;
         int i = 0;
-        if(sc.nextLine() == "BEGIN") {
-            while(true) {
-                reponse[i] = sc.nextLine();
-                if(reponse[i] == "END") {
-                    return reponse;
-                }
+        while(true) {
+            reponse[i] = sc.nextLine();
+            if(reponse[i] == "END") {
+                return reponse;
             }
         }
-        return null;
     }
-    
 }
