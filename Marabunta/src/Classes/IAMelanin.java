@@ -16,6 +16,7 @@ public class IAMelanin
 	private static Ant ant;
 	private static Nest nest;
 	private static ArrayList<Target> targets = null;
+	private static ArrayList<String> sorties = null;
 
     private static int nbrFourmis = 0;
     private static int nbrdehors = 0;
@@ -24,11 +25,13 @@ public class IAMelanin
     private static int scenarioId = 1;
     private static ArrayList<Integer> antList = new ArrayList<Integer>();
     private static String[] reception;
+    private static Game game;
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {       
-       
+       game = new Game(0,0);
     	
     	while(true){
     		String[] entries = recoie(); 
@@ -52,42 +55,49 @@ public class IAMelanin
     				break;
     			}
     		}
-            while(stream.length() < 100){
-             
-            }
+    		
+    		
+    		if(!isAnt)
+    			sorties = game.nestAction(nest);
+    		else
+    			sorties = game.detailledAntAction(ant, targets);
+    		
+    		for(String sortie : sorties) {
+    			System.out.println(sortie);
+    		}
+            
         }
          
     }
     
     public static void classifyAnt(String str) {    	
     	String[] decoupage = str.split(" ");
-    	switch(decoupage[2]){
+    	switch(decoupage[0]){
 	    	case "TYPE":
-				ant.setId(Integer.parseInt(decoupage[3]));
+				ant.setId(Integer.parseInt(decoupage[1]));
 				break;
 	    	case "MEMORY":
-	    		ant.setMemory(Integer.parseInt(decoupage[3]), Integer.parseInt(decoupage[4]));
+	    		ant.setMemory(Integer.parseInt(decoupage[1]), Integer.parseInt(decoupage[2]));
 				break;
 	    	case "STAMINA":
-	    		ant.setStamina(Integer.parseInt(decoupage[3]));
+	    		ant.setStamina(Integer.parseInt(decoupage[1]));
 				break;
 	    	case "SEE_ANT":
-	    		targets.add(new Target(Integer.parseInt(decoupage[3]),Type.ANT,decoupage[4],
-	    				decoupage[6],Integer.parseInt(decoupage[5]),Integer.parseInt(decoupage[7]),0));
+	    		targets.add(new Target(Integer.parseInt(decoupage[1]),Type.ANT,decoupage[2],
+	    				decoupage[4],Integer.parseInt(decoupage[3]),Integer.parseInt(decoupage[5]),0));
 				break;
 	    	case "SEE_NEST":
-	    		targets.add(new Target(Integer.parseInt(decoupage[3]),Type.NEST,decoupage[4],
-	    				decoupage[6],Integer.parseInt(decoupage[5]),0,0));
+	    		targets.add(new Target(Integer.parseInt(decoupage[1]),Type.NEST,decoupage[2],
+	    				decoupage[4],Integer.parseInt(decoupage[3]),0,0));
 				break;
 	    	case "SEE_FOOD":
-	    		if(decoupage[4] == "NEAR")
-	    		targets.add(new Target(Integer.parseInt(decoupage[3]),Type.FOOD,decoupage[4],
-	    				"",Integer.parseInt(decoupage[5]),Integer.parseInt(decoupage[6]),0));
+	    		targets.add(new Target(Integer.parseInt(decoupage[1]),Type.FOOD,decoupage[2],
+	    				"",Integer.parseInt(decoupage[3]),Integer.parseInt(decoupage[4]),0));
 				break;
 	    	case "SEE_PHEROMONE":
-	    		targets.add(new Target(Integer.parseInt(decoupage[3]),Type.PHEROMONE,decoupage[4],
-	    				"",Integer.parseInt(decoupage[5]),Integer.parseInt(decoupage[6]),
-	    				Integer.parseInt(decoupage[7])));
+	    		targets.add(new Target(Integer.parseInt(decoupage[1]),Type.PHEROMONE,decoupage[2],
+	    				"",Integer.parseInt(decoupage[3]),Integer.parseInt(decoupage[4]),
+	    				Integer.parseInt(decoupage[5])));
 				break;
 			default: break;
     	}
@@ -95,23 +105,17 @@ public class IAMelanin
     
     public static void classifyNest(String str) {    	
     	String[] decoupage = str.split(" ");
-    	switch(decoupage[2]){
+    	switch(decoupage[0]){
 	    	case "STOCK":
-				nest.setFood(Integer.parseInt(decoupage[3]));
+				nest.setFood(Integer.parseInt(decoupage[1]));
 				break;
 	    	case "MEMORY":
 	    		int[] memory = new int[20];
-	    	    for(int i = 3; i < 20; ++i) memory[i] = Integer.parseInt(decoupage[3]);
+	    	    for(int i = 0; i < 20; ++i) memory[i] = Integer.parseInt(decoupage[i+1]);
 				nest.setMemory(memory);
 				break;
 			default: break;
     	}
-    }
-        
-    public void envoie(String _stream) {
-        
-       System.out.println(_stream);
-          
     }
     
     public static String[] recoie() {
