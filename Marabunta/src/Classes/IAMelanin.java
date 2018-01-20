@@ -12,6 +12,7 @@ import java.util.*;
 
 public class IAMelanin
 {
+	private static boolean isAnt;
 
     private static int nbrFourmis = 0;
     private static int nbrdehors = 0;
@@ -23,34 +24,30 @@ public class IAMelanin
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-       System.out.println("Hello world");
-    	/*Game partie = new Game(0, 200);*/
-       	while(nbrFourmis < 3) {
-        	recoie();
-        	System.out.println("NEW_ANT 1 \n END");
-        	nbrFourmis ++;
-        	recoie();
-        	System.out.println("OUT_ANT 1 \n END");
-        	nbrdehors++;
-        	for(int i=0; i<nbrdehors; ++i) {
-           		recoie();
-           		System.out.println("EXPLORE \n END");
-           	}
-        	
-       	}
-       	while(true){
-       	for(int i=0; i<4; ++i) {
-       		if(i == 0) {
-       			System.out.println("END");
-       		}
-       		else {
-       			System.out.println("EXPLORE \n END");
-       		}
-       	}
-    }
-       	
+    public static void main(String[] args) {       
+       
     	
+    	while(true){
+    		String[] entries = recoie(); 
+    		for(String str: entries) {
+    			switch(str) {
+    			case "BEGIN ANT":
+    				isAnt = true;
+    				break;
+    			case "BEGIN NEST":
+    				isAnt = false;
+    				break;
+    			case "END":
+    				break;
+    			default:
+    				
+    				break;
+    			}
+    		}
+            while(stream.length() < 100){
+             
+            }
+        }
          
     }
     
