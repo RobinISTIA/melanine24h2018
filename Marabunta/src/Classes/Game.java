@@ -83,6 +83,7 @@ public class Game {
 				stream += ant.moveTo(idx) + "\n";
 			}else if(actionExclusive){
 				stream += ant.explore() + "\n";
+				stream += ant.putPheromone(ant.getId())+"\n";
 			}
 				
 		}
