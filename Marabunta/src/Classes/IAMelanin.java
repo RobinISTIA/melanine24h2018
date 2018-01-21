@@ -103,7 +103,7 @@ public class IAMelanin
     
     public static void classifyNest(String str) {    	
     	String[] decoupage = str.split(" ");
-    	if(decoupage[0].equals("STOCK")) nest.setFood(Integer.parseInt(decoupage[1]));
+    	if(decoupage[0].equals("STOCK")) System.out.println("HEY HO");
     	else if(decoupage[0].equals("MEMORY")) {
 	    		int[] memory = new int[20];
 	    	    for(int i = 0; i < 20; ++i) memory[i] = Integer.parseInt(decoupage[i+1]);
