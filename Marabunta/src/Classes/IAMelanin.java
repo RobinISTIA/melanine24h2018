@@ -128,11 +128,17 @@ public class IAMelanin
         	if(isReceiving == true) {
         		if( sc.nextLine().equals("END")) {
             		isReceiving = false;
-            		sc.close();
+            		System.out.println("IT'S THE END");
             		return reponse;
-            	}else reponse.add(sc.nextLine());
+            	}else {
+            		System.out.println("J'AJOUTE");
+            		reponse.add(sc.nextLine());
+            	}
         	}
-        	else if( sc.nextLine().equals("BEGIN NEST") || sc.nextLine().equals("BEGIN ANT") ) isReceiving = true;
+        	else if( sc.nextLine().equals("BEGIN NEST") || sc.nextLine().equals("BEGIN ANT") ) {
+        		isReceiving = true;
+        		System.out.println("I RECEIVE");
+        	}
         }
     }
 }
