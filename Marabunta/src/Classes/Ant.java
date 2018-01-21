@@ -54,40 +54,40 @@ public class Ant{
 	public String setMemory(int mem0, int mem1){
 		this.mem0 = mem0;
 		this.mem1 = mem1;
-		return "SET_MEMORY "+mem0+" "+mem1+"\n";
+		return "SET_MEMORY "+mem0+" "+mem1;
 	}
 	
 	//Exclusif
 	public String explore(){
-		return checkActionPossible(1)+"EXPLORE"+"\n";
+		return checkActionPossible(1)+"EXPLORE";
 	}
 	
 	
 	public String putPheromone(int type){
-		return checkActionPossible(3)+"PUT_PHEROMONE "+type+"\n";
+		return checkActionPossible(3)+"PUT_PHEROMONE "+type;
 	}
 	
 	public String refillPheromone(int id){
-		return checkActionPossible(1)+"RECHARGE_PHEROMONE "+id+"\n";
+		return checkActionPossible(1)+"RECHARGE_PHEROMONE "+id;
 	}
 	
 	public String replacePheromone(int id, int type){
-		return checkActionPossible(2)+"CHANGE_PHEROMONE "+id+" "+type+"\n";
+		return checkActionPossible(2)+"CHANGE_PHEROMONE "+id+" "+type;
 	}
 	
 	//Exclusif
 	public String collect(int id,int qtt){
-		return checkActionPossible(4)+"COLLECT "+id+" "+qtt+"\n";
+		return checkActionPossible(4)+"COLLECT "+id+" "+qtt;
 	}
 	
 	//Exclusif
 	public String moveTo(int id){
-		return checkActionPossible(2)+"MOVE_TO "+id+"\n";
+		return checkActionPossible(2)+"MOVE_TO "+id;
 	}
 
 	//Exclusif
 	public String attack(int id, int force){
-		return checkActionPossible(force)+"ATTACK "+id+" "+force+"\n";
+		return checkActionPossible(force)+"ATTACK "+id+" "+force;
 	}
 	
 	public String suicide(){
@@ -105,7 +105,7 @@ public class Ant{
 	public String exchangeGive(int id, int qtt){
 		if(checkActionPossible(qtt).equals("")) {
 			food -= qtt;
-			return checkActionPossible(qtt)+"DO_TROPHALLAXIS "+id+" "+qtt+"\n";
+			return checkActionPossible(qtt)+"DO_TROPHALLAXIS "+id+" "+qtt;
 		}else return checkActionPossible(qtt);
 	}
 	
@@ -122,7 +122,7 @@ public class Ant{
 	//Exclusif
 	public String turn(int angle){
 		if(angle < -180 || angle > 180) angle = 0;
-		return checkActionPossible(1)+"TURN "+angle+"\n";
+		return checkActionPossible(1)+"TURN "+angle;
 	}
 	
 	public String checkActionPossible(int usedStamina) {
