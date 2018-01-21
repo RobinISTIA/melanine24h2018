@@ -13,8 +13,8 @@ import java.util.*;
 public class IAMelanin
 {
 	private static boolean isAnt;
-	private static Ant ant;
-	private static Nest nest;
+	private static Ant ant = null;
+	private static Nest nest = null;
 	private static ArrayList<Target> targets = null;
 	private static ArrayList<String> sorties = null;
 
@@ -45,6 +45,7 @@ public class IAMelanin
 	    			case "BEGIN NEST":
 	    				isAnt = false;
 	    				nest = new Nest();
+	    				System.out.println("CREATING SOMETHING");
 	    				break;
 	    			case "END":
 	    				break;
@@ -103,7 +104,7 @@ public class IAMelanin
     
     public static void classifyNest(String str) {    	
     	String[] decoupage = str.split(" ");
-    	if(decoupage[0].equals("STOCK")) System.out.println("HEY HO");
+    	if(decoupage[0].equals("STOCK")) nest.setFood(Integer.parseInt(decoupage[1]));
     	else if(decoupage[0].equals("MEMORY")) {
 	    		int[] memory = new int[20];
 	    	    for(int i = 0; i < 20; ++i) memory[i] = Integer.parseInt(decoupage[i+1]);
