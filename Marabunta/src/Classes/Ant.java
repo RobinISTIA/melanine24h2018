@@ -59,35 +59,42 @@ public class Ant{
 	
 	//Exclusif
 	public String explore(){
-		return checkActionPossible(1)+"EXPLORE";
+		if(checkActionPossible(1) == "") return "EXPLORE";
+		else return checkActionPossible(1);
 	}
 	
 	
 	public String putPheromone(int type){
-		return checkActionPossible(3)+"PUT_PHEROMONE "+type;
+		if(checkActionPossible(3) == "") return "EXPLORE";
+		else return checkActionPossible(3);
 	}
 	
 	public String refillPheromone(int id){
-		return checkActionPossible(1)+"RECHARGE_PHEROMONE "+id;
+		if(checkActionPossible(1) == "") return "RECHARGE_PHEROMONE"+id;
+		else return checkActionPossible(1);
 	}
 	
 	public String replacePheromone(int id, int type){
-		return checkActionPossible(2)+"CHANGE_PHEROMONE "+id+" "+type;
+		if(checkActionPossible(2) == "") return "CHANGE_PHEROMONE "+id+" "+type;
+		else return checkActionPossible(2);
 	}
 	
 	//Exclusif
 	public String collect(int id,int qtt){
-		return checkActionPossible(4)+"COLLECT "+id+" "+qtt;
+		if(checkActionPossible(4) == "") return "COLLECT "+id+" "+qtt;
+		else return checkActionPossible(4);
 	}
 	
 	//Exclusif
 	public String moveTo(int id){
-		return checkActionPossible(2)+"MOVE_TO "+id;
+		if(checkActionPossible(2) == "") return "MOVE_TO "+id;
+		else return checkActionPossible(2);
 	}
 
 	//Exclusif
 	public String attack(int id, int force){
-		return checkActionPossible(force)+"ATTACK "+id+" "+force;
+		if(checkActionPossible(force) == "") return "ATTACK "+id+" "+force;
+		else return checkActionPossible(force);
 	}
 	
 	public String suicide(){
@@ -98,14 +105,14 @@ public class Ant{
 		food -= qtt;
 		stamina += qtt * 10;
 		if(stamina > 10000) stamina = 10000;
-		return "EAT "+qtt+"\n";
+		return "EAT "+qtt;
 	}
 	
 	//Exclusif
 	public String exchangeGive(int id, int qtt){
 		if(checkActionPossible(qtt).equals("")) {
 			food -= qtt;
-			return checkActionPossible(qtt)+"DO_TROPHALLAXIS "+id+" "+qtt;
+			return "DO_TROPHALLAXIS "+id+" "+qtt;
 		}else return checkActionPossible(qtt);
 	}
 	
@@ -122,7 +129,8 @@ public class Ant{
 	//Exclusif
 	public String turn(int angle){
 		if(angle < -180 || angle > 180) angle = 0;
-		return checkActionPossible(1)+"TURN "+angle;
+		if(checkActionPossible(1) == "") return "TURN "+angle;
+		else return checkActionPossible(1);
 	}
 	
 	public String checkActionPossible(int usedStamina) {
