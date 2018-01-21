@@ -136,4 +136,12 @@ public class Ant{
 			return "";
 		}
 	}
+	
+	public int getMemory0(){
+		return mem0;
+	}
+	
+	public int getMemory1(){
+		return mem1;
+	}
 }
