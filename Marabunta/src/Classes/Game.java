@@ -21,25 +21,11 @@ public class Game {
 		stream.add("BEGIN");
 		boolean actionExclusive = true;
 		
-		/*
-		myNest.setFood(nest.getFood());
-		myNest.setPopulation(nest.getPopulation());
-		
-		if(!newMemory(myNest, nest)){
-			myNest.setMemory(nest.getMemory());
-			int[] memory = nest.getMemory();
-			stream.add("MEMORY "+memory[0]+" "+memory[1]+" "+memory[2]+" "+memory[3]+" "+memory[4]+" "+memory[5]+" "+
-					memory[6]+" "+memory[7]+" "+memory[8]+" "+memory[9]+" "+memory[10]+" "+memory[11]+" "+memory[12]+" "+
-					memory[13]+" "+memory[14]+" "+memory[15]+" "+memory[16]+" "+memory[17]+" "+memory[18]+" "+memory[19]);
-		}
-		
-		*/
-		
 		if(actionExclusive && nest.getColony() > 0)
 		{
 			int antId = nest.outAnt();
 			antList.add(new Ant(antId));
-			stream.add("ANT_OUT "+antId+" 0 0 0");
+			stream.add("ANT_OUT "+antId+" 10 0 0");
 			actionExclusive = false;
 		}
 		
