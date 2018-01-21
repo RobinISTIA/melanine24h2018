@@ -18,6 +18,7 @@ public class Game {
 	
 	public ArrayList<String> nestAction(Nest nest){
 		ArrayList<String> stream = new ArrayList<String>();
+		stream.add("BEGIN");
 		boolean actionExclusive = true;
 		myNest.setFood(nest.getFood());
 		myNest.setPopulation(nest.getPopulation());
@@ -36,7 +37,7 @@ public class Game {
 			actionExclusive = false;
 		}		
 		
-		stream.add("End");
+		stream.add("END");
 		return stream;
 	}
 	public String shortAntAction(Ant ant){
@@ -103,7 +104,7 @@ public class Game {
 			stream.add(ant.explore());
 			stream.add(ant.putPheromone(505));
 		}	
-		stream.add("End");
+		stream.add("END");
 		return stream;
 	}
 	
