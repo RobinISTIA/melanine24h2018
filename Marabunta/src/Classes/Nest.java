@@ -73,4 +73,9 @@ public class Nest{
 		
 		return -1;
 	}
+	
+	public int getColony(){
+		return colony.size();
+	}
+		
 }

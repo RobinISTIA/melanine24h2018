@@ -20,6 +20,8 @@ public class Game {
 		ArrayList<String> stream = new ArrayList<String>();
 		stream.add("BEGIN");
 		boolean actionExclusive = true;
+		
+		/*
 		myNest.setFood(nest.getFood());
 		myNest.setPopulation(nest.getPopulation());
 		
@@ -31,17 +33,18 @@ public class Game {
 					memory[13]+" "+memory[14]+" "+memory[15]+" "+memory[16]+" "+memory[17]+" "+memory[18]+" "+memory[19]);
 		}
 		
+		*/
 		
-		
-		if(actionExclusive && nest.getPopulation() > 0)
+		if(actionExclusive && nest.getColony() > 0)
 		{
 			int antId = nest.outAnt();
 			antList.add(new Ant(antId));
 			stream.add("ANT_OUT "+antId+" 0 0 0");
+			actionExclusive = false;
 		}
 		
 		
-		if(nest.getPopulation() + antList.size() < maxAnt && actionExclusive){
+		if(nest.getColony() + antList.size() < maxAnt && actionExclusive){
 			nest.createAnt(nextAntId);
 			stream.add("ANT_NEW "+nextAntId);
 			actionExclusive = false;
@@ -53,10 +56,13 @@ public class Game {
 	}
 	
 	
-	public String shortAntAction(Ant ant){
+	public ArrayList<String> shortAntAction(Ant ant){
 		
-		String stream = "";
-		return stream +"END";
+		ArrayList<String> stream = new ArrayList<String>();
+		stream.add("BEGIN");
+		stream.add("EXPLORE");
+		stream.add("END");
+		return stream;
 	}
 
 	public ArrayList<String> detailledAntAction(Ant ant, ArrayList<Target> targets){
