@@ -125,17 +125,18 @@ public class IAMelanin
         ArrayList<String> reponse = new ArrayList<String>();
         boolean  isReceiving = false;
         while(true) {
+        	String received = sc.nextLine();
         	if(isReceiving == true) {
-        		if( sc.nextLine().equals("END")) {
+        		if( received.equals("END")) {
             		isReceiving = false;
             		System.out.println("IT'S THE END");
             		return reponse;
             	}else {
             		System.out.println("J'AJOUTE");
-            		reponse.add(sc.nextLine());
+            		reponse.add(received);
             	}
         	}
-        	else if( sc.nextLine().equals("BEGIN NEST") || sc.nextLine().equals("BEGIN ANT") ) {
+        	else if( received.equals("BEGIN NEST") || received.equals("BEGIN ANT") ) {
         		isReceiving = true;
         		System.out.println("I RECEIVE");
         	}
