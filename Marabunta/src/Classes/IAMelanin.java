@@ -120,13 +120,17 @@ public class IAMelanin
     
     public static String[] recoie() {
         Scanner sc = new Scanner(System.in);
-        String[] reponse = null;
+        ArrayList<String> reponse = null;
         int i = 0;
-        while(true) {
-            reponse[i] = sc.nextLine();
-            if(reponse[i] == "END") {
-                return reponse;
-            }
+        boolean  isReceiving = false;
+        while(sc.hasNextLine()) {
+        	if( sc.nextLine() == "BEGIN") isReceiving = true;
+        	if( sc.nextLine() == "END" ) {
+        		isReceiving = false;
+        		return (String[]) reponse.toArray();
+        	}
+        	if(isReceiving == true && sc.nextLine() != "BEGIN" ) reponse.add(sc.nextLine());
         }
+        return new String[0];
     }
 }
