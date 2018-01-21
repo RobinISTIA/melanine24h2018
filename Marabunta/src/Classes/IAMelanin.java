@@ -35,9 +35,8 @@ public class IAMelanin
     	
     	while(true){
     		ArrayList<String> entries = recoie(); 
-    		System.out.println(""+entries.size());
-    		/*for(String str: entries) {
-    			/*switch(str) {
+    		for(String str: entries) {
+    			switch(str) {
     			case "BEGIN ANT":
     				isAnt = true;
     				ant = new Ant();
@@ -48,7 +47,6 @@ public class IAMelanin
     				nest = new Nest();
     				break;
     			case "END":
-    				//APPELER CLASSE DE JULES
     				break;
     			default:
     				if(isAnt) classifyAnt(str);
@@ -57,16 +55,16 @@ public class IAMelanin
     			}
     			
     			System.out.println(str);
-    		}*/
+    		}
     		
-    		/*if(!isAnt)
+    		if(!isAnt)
     			sorties = game.nestAction(nest);
     		else
     			sorties = game.detailledAntAction(ant, targets);
     		
     		for(String sortie : sorties) {
     			System.out.println(sortie);
-    		}*/
+    		}
             
         }
          
@@ -129,16 +127,13 @@ public class IAMelanin
         	if(isReceiving == true) {
         		if( received.equals("END")) {
             		isReceiving = false;
-            		System.out.println("IT'S THE END");
             		return reponse;
             	}else {
-            		System.out.println("J'AJOUTE");
             		reponse.add(received);
             	}
         	}
         	else if( received.equals("BEGIN NEST") || received.equals("BEGIN ANT") ) {
         		isReceiving = true;
-        		System.out.println("I RECEIVE");
         	}
         }
     }
