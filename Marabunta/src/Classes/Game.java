@@ -7,7 +7,7 @@ public class Game {
 	private Nest myNest;
 	private ArrayList<Ant> antList;
 	private int maxAnt = 10;
-	private int nextAntId;
+	private int nextAntId =1;
 	private int numVersion = 2;
 	
 	public Game(int population, int food){
@@ -23,6 +23,16 @@ public class Game {
 		myNest.setFood(nest.getFood());
 		myNest.setPopulation(nest.getPopulation());
 		
+		if(!newMemory(myNest, nest)){
+			myNest.setMemory(nest.getMemory());
+			int[] memory = nest.getMemory();
+			stream.add("MEMORY "+memory[0]+" "+memory[1]+" "+memory[2]+" "+memory[3]+" "+memory[4]+" "+memory[5]+" "+
+					memory[6]+" "+memory[7]+" "+memory[8]+" "+memory[9]+" "+memory[10]+" "+memory[11]+" "+memory[12]+" "+
+					memory[13]+" "+memory[14]+" "+memory[15]+" "+memory[16]+" "+memory[17]+" "+memory[18]+" "+memory[19]);
+		}
+		
+		
+		
 		if(actionExclusive && nest.getPopulation() > 0)
 		{
 			int antId = nest.outAnt();
@@ -35,16 +45,20 @@ public class Game {
 			nest.createAnt(nextAntId);
 			stream.add("ANT_NEW "+nextAntId);
 			actionExclusive = false;
+			nextAntId++;
 		}		
 		
 		stream.add("END");
 		return stream;
 	}
+	
+	
 	public String shortAntAction(Ant ant){
 		
 		String stream = "";
 		return stream +"END";
 	}
+
 	public ArrayList<String> detailledAntAction(Ant ant, ArrayList<Target> targets){
 		ArrayList<String> stream = new ArrayList<String>();
 		stream.add("BEGIN");
@@ -79,8 +93,11 @@ public class Game {
 			if((idxNestList.size() > 0 && actionExclusive && ant.getFood()>500) || ant.getMemory1() == 1){
 				Target t = lookAtNearestNests(targets, idxNestList);
 				if(t != null){
-					if(t.getZone().equals("NEAR"))
+					if(t.getZone().equals("NEAR")){
 						stream.add(ant.enterInTheNest(t.getId()));
+						removeFromOutside(ant);
+					}
+						
 					else
 						stream.add(ant.moveTo(t.getId()));
 					
@@ -134,6 +151,14 @@ public class Game {
 		
 		return new Food(-1, 0, 0, "DOESNTEXIST");
 		
+	}
+	
+	public boolean newMemory(Nest nest, Nest newNest){
+		boolean test = true;
+		for(int i = 0; i < 20; ++i)
+			test = (nest.getMemory()[i] == nest.getMemory()[i]) && test;
+		
+		return test;
 	}
 	
 	public Target lookAtNearestNests(ArrayList<Target> targets, ArrayList<Integer> idxNests){
@@ -213,4 +238,12 @@ public class Game {
 		return id;
 	}
 	
+	public void removeFromOutside(Ant ant){
+		for(int i = 0; i < antList.size(); ++i)
+			if(ant.getId() == antList.get(i).getId()){
+				antList.remove(i);
+				return;
+			}
+				
+	}
 }

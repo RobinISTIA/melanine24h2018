@@ -111,6 +111,9 @@ public class IAMelanin
 	    	    for(int i = 0; i < 20; ++i) memory[i] = Integer.parseInt(decoupage[i+1]);
 				nest.setMemory(memory);
     	}
+    	else if(decoupage[0].equals("ANT_IN")){
+    		nest.inAnt(Integer.parseInt(decoupage[1]));
+    	}
     }
     
     public static ArrayList<String> recoie() {

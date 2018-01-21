@@ -50,6 +50,10 @@ public class Nest{
 		return id;
 	}
 	
+	public void inAnt(int id){
+		colony.add(new Ant(id));
+	}
+	
 	private void populate(){
 		for(int  i = 0; i < population; ++i) colony.add(new Ant(i));
 	}
@@ -61,4 +65,12 @@ public class Nest{
 	public void setMemory(int[] memory) {
 		this.memory = memory;
 	}	
+	
+	public int getNextMemory(){
+		for(int i = 0; i < 20; ++i)
+			if(this.memory[i] == 0)
+				return i;
+		
+		return -1;
+	}
 }
