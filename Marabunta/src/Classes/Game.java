@@ -8,6 +8,7 @@ public class Game {
 	private ArrayList<Ant> antList;
 	private int maxAnt = 10;
 	private int nextAntId;
+	private int numVersion = 2;
 	
 	public Game(int population, int food){
 		myNest = new Nest(population, food);
@@ -25,13 +26,13 @@ public class Game {
 		{
 			int antId = nest.outAnt();
 			antList.add(new Ant(antId));
-			stream.add("ANT_OUT "+antId+" 0 0 0\n");
+			stream.add("ANT_OUT "+antId+" 0 0 0");
 		}
 		
 		
 		if(nest.getPopulation() + antList.size() < maxAnt && actionExclusive){
 			nest.createAnt(nextAntId);
-			stream.add("NEW_ANT "+nextAntId+"\n");
+			stream.add("NEW_ANT "+nextAntId);
 			actionExclusive = false;
 		}		
 		
@@ -45,6 +46,7 @@ public class Game {
 	}
 	public ArrayList<String> detailledAntAction(Ant ant, ArrayList<Target> targets){
 		ArrayList<String> stream = new ArrayList<String>();
+		stream.add("BEGIN");
 		boolean actionExclusive = true;
 		
 		ArrayList<Food> foodList = getFoods(targets);
@@ -55,41 +57,51 @@ public class Game {
 		if(antFound.getId() != -1){	
 			if(foodList.size() != 0 && actionExclusive){
 				Food food = lookAtNearestFood(foodList);
-				if(food.ID != -1 && ant.getFood() < 1000){
-					if(food.zone.equals("NEAR"))
-						stream.add(ant.collect(food.ID, min(1000-ant.getFood(), food.quantity)) + "\n");
+				if(food.ID != -1 && ant.getFood() < 1000 && ant.getMemory1() == 0){
+					if(food.zone.equals("NEAR")){
+						int ramasse = min(1000-ant.getFood(), food.quantity-1);
+						stream.add(ant.collect(food.ID,ramasse));
+						if(ramasse == food.quantity-1)
+							stream.add(ant.setMemory(0, 1));
+					}
+						
 					
-					else
-						stream.add(ant.moveTo(food.ID) + "\n");	
+					else{
+						stream.add(ant.moveTo(food.ID));
+						stream.add(ant.setMemory(ant.getMemory0()+1, ant.getMemory1()));
+					}
+							
 					
 					actionExclusive = false;
 				}
 			}
-			if(idxNestList.size() > 0 && actionExclusive && ant.getFood()>500){
+			if((idxNestList.size() > 0 && actionExclusive && ant.getFood()>500) || ant.getMemory1() == 1){
 				Target t = lookAtNearestNests(targets, idxNestList);
 				if(t != null){
 					if(t.getZone().equals("NEAR"))
-						stream.add(ant.enterInTheNest(t.getId())+ "\n");
+						stream.add(ant.enterInTheNest(t.getId()));
 					else
-						stream.add(ant.moveTo(t.getId()) + "\n");
+						stream.add(ant.moveTo(t.getId()));
 					
 					actionExclusive = false;
 				}
 					
 			}
 			
-			if(pheromoneList.size() != 0 && actionExclusive && ant.getFood()>500){
+			if((pheromoneList.size() != 0 && actionExclusive && ant.getFood()>500) || ant.getMemory1() == 1 || ant.getMemory0() >= 50){
 				int idx = lookForOldestPheromone(pheromoneList);
-				stream.add(ant.moveTo(idx) + "\n");
+				stream.add(ant.moveTo(idx));
+				stream.add(ant.putPheromone(ant.getId()));
 			}else if(actionExclusive){
-				stream.add(ant.explore() + "\n");
-				stream.add(ant.putPheromone(ant.getId())+"\n");
+				stream.add(ant.explore());
+				stream.add(ant.putPheromone(ant.getId()));
+				stream.add(ant.setMemory(ant.getMemory0()+1, ant.getMemory1()));
 			}
 				
 		}
 		else{
-			stream.add(ant.explore()+"\n");
-			stream.add(ant.putPheromone(505)+"\n");
+			stream.add(ant.explore());
+			stream.add(ant.putPheromone(505));
 		}	
 		stream.add("End");
 		return stream;
