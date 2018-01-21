@@ -73,4 +73,9 @@ public class Nest{
 		
 		return -1;
 	}
+
+	public int getColony() {
+		// TODO Auto-generated method stub
+		return colony.size();
+	}
 }
