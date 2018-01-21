@@ -36,8 +36,7 @@ public class IAMelanin
     	while(true){
     		ArrayList<String> entries = recoie(); 
     		for(String str: entries) {
-    			System.out.println(str);
-    			/*switch(str) {
+    			switch(str) {
 	    			case "BEGIN ANT":
 	    				isAnt = true;
 	    				ant = new Ant();
@@ -53,10 +52,10 @@ public class IAMelanin
 	    				if(isAnt) classifyAnt(str);
 	    				else classifyNest(str);
 	    				break;
-    			}*/
+    			}
     		}
     		
-    		/*if(!isAnt)
+    		if(!isAnt)
     			sorties = game.nestAction(nest);
     		else
     			sorties = game.detailledAntAction(ant, targets);
@@ -67,7 +66,7 @@ public class IAMelanin
     				System.out.println("END");
     				break;
     			}
-    		}*/
+    		}
         }
     }
     
