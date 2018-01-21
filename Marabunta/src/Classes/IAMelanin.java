@@ -31,27 +31,27 @@ public class IAMelanin
      * @param args the command line arguments
      */
     public static void main(String[] args) {       
-       game = new Game(0,0);
-    	
+        game = new Game(0,0);
+    	isAnt = false;
     	while(true){
     		ArrayList<String> entries = recoie(); 
     		for(String str: entries) {
     			switch(str) {
-    			case "BEGIN ANT":
-    				isAnt = true;
-    				ant = new Ant();
-    				targets = new ArrayList<Target>();
-    				break;
-    			case "BEGIN NEST":
-    				isAnt = false;
-    				nest = new Nest();
-    				break;
-    			case "END":
-    				break;
-    			default:
-    				if(isAnt) classifyAnt(str);
-    				else classifyNest(str);
-    				break;
+	    			case "BEGIN ANT":
+	    				isAnt = true;
+	    				ant = new Ant();
+	    				targets = new ArrayList<Target>();
+	    				break;
+	    			case "BEGIN NEST":
+	    				isAnt = false;
+	    				nest = new Nest();
+	    				break;
+	    			case "END":
+	    				break;
+	    			default:
+	    				if(isAnt) classifyAnt(str);
+	    				else classifyNest(str);
+	    				break;
     			}
     		}
     		
@@ -103,16 +103,11 @@ public class IAMelanin
     
     public static void classifyNest(String str) {    	
     	String[] decoupage = str.split(" ");
-    	switch(decoupage[0]){
-	    	case "STOCK":
-				nest.setFood(Integer.parseInt(decoupage[1]));
-				break;
-	    	case "MEMORY":
+    	if(decoupage[0].equals("STOCK")) nest.setFood(Integer.parseInt(decoupage[1]));
+    	else if(decoupage[0].equals("MEMORY")) {
 	    		int[] memory = new int[20];
 	    	    for(int i = 0; i < 20; ++i) memory[i] = Integer.parseInt(decoupage[i+1]);
 				nest.setMemory(memory);
-				break;
-			default: break;
     	}
     }
     
