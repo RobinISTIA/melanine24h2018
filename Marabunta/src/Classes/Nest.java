@@ -9,7 +9,12 @@ public class Nest{
 	private int[] memory;
 	private ArrayList<Ant> colony = null;
 	
-	public Nest(){}
+	public Nest(){
+		this.population = 0;
+		this.food = 0;
+		this.memory = new int[20];
+		this.colony = new ArrayList<Ant>();
+	}
 	
 	public Nest(int population, int food){
 		this.population = population;
