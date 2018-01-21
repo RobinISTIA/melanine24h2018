@@ -56,7 +56,6 @@ public class IAMelanin
     			}
     		}
     		
-    		
     		if(!isAnt)
     			sorties = game.nestAction(nest);
     		else
@@ -120,7 +119,7 @@ public class IAMelanin
     
     public static String[] recoie() {
         Scanner sc = new Scanner(System.in);
-        ArrayList<String> reponse = null;
+        ArrayList<String> reponse = new ArrayList<String>();
         int i = 0;
         boolean  isReceiving = false;
         while(sc.hasNextLine()) {
@@ -131,6 +130,6 @@ public class IAMelanin
         	}
         	if(isReceiving == true && sc.nextLine() != "BEGIN" ) reponse.add(sc.nextLine());
         }
-        return new String[0];
+        return (String[]) reponse.toArray();
     }
 }
