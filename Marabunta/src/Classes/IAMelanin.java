@@ -123,12 +123,12 @@ public class IAMelanin
     public static ArrayList<String> recoie() {
         Scanner sc = new Scanner(System.in);
         ArrayList<String> reponse = new ArrayList<String>();
-        int i = 0;
         boolean  isReceiving = false;
         while(true) {
         	if(isReceiving == true) {
         		if( sc.nextLine().equals("END")) {
             		isReceiving = false;
+            		sc.close();
             		return reponse;
             	}else reponse.add(sc.nextLine());
         	}
