@@ -126,12 +126,12 @@ public class IAMelanin
         int i = 0;
         boolean  isReceiving = false;
         while(true) {
-        	if( sc.nextLine().equals("BEGIN NEST") || sc.nextLine().equals("BEGIN ANT") ) isReceiving = true;
         	if( sc.nextLine().equals("END")) {
         		isReceiving = false;
         		return reponse;
         	}
-        	if(isReceiving == true && !sc.nextLine().equals("BEGIN")) reponse.add(sc.nextLine());
+        	if(isReceiving == true) reponse.add(sc.nextLine());
+        	if( sc.nextLine().equals("BEGIN NEST") || sc.nextLine().equals("BEGIN ANT") ) isReceiving = true;
         }
     }
 }
