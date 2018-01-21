@@ -34,8 +34,8 @@ public class IAMelanin
        game = new Game(0,0);
     	
     	while(true){
-    		String[] entries = recoie(); 
-    		System.out.println(""+entries.length);
+    		ArrayList<String> entries = recoie(); 
+    		System.out.println(""+entries.size());
     		/*for(String str: entries) {
     			/*switch(str) {
     			case "BEGIN ANT":
@@ -120,7 +120,7 @@ public class IAMelanin
     	}
     }
     
-    public static String[] recoie() {
+    public static ArrayList<String> recoie() {
         Scanner sc = new Scanner(System.in);
         ArrayList<String> reponse = new ArrayList<String>();
         int i = 0;
@@ -129,7 +129,7 @@ public class IAMelanin
         	if( sc.nextLine().equals("BEGIN")) isReceiving = true;
         	if( sc.nextLine().equals("END")) {
         		isReceiving = false;
-        		return (String[]) reponse.toArray();
+        		return reponse;
         	}
         	if(isReceiving == true && !sc.nextLine().equals("BEGIN")) reponse.add(sc.nextLine());
         }
