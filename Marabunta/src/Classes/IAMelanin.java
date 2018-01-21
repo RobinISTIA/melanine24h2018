@@ -125,12 +125,12 @@ public class IAMelanin
         int i = 0;
         boolean  isReceiving = false;
         while(sc.hasNextLine()) {
-        	if( sc.nextLine() == "BEGIN") isReceiving = true;
-        	if( sc.nextLine() == "END" ) {
+        	if( sc.nextLine().equals("BEGIN")) isReceiving = true;
+        	if( sc.nextLine().equals("END")) {
         		isReceiving = false;
         		return (String[]) reponse.toArray();
         	}
-        	if(isReceiving == true && sc.nextLine() != "BEGIN" ) reponse.add(sc.nextLine());
+        	if(isReceiving == true && !sc.nextLine().equals("BEGIN")) reponse.add(sc.nextLine());
         }
         return (String[]) reponse.toArray();
     }
