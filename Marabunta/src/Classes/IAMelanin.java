@@ -53,8 +53,6 @@ public class IAMelanin
     				else classifyNest(str);
     				break;
     			}
-    			
-    			System.out.println(str);
     		}
     		
     		if(!isAnt)
