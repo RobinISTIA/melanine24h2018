@@ -125,7 +125,7 @@ public class IAMelanin
         ArrayList<String> reponse = new ArrayList<String>();
         int i = 0;
         boolean  isReceiving = false;
-        while(sc.hasNextLine()) {
+        while(true) {
         	if( sc.nextLine().equals("BEGIN")) isReceiving = true;
         	if( sc.nextLine().equals("END")) {
         		isReceiving = false;
@@ -133,6 +133,5 @@ public class IAMelanin
         	}
         	if(isReceiving == true && !sc.nextLine().equals("BEGIN")) reponse.add(sc.nextLine());
         }
-        return (String[]) reponse.toArray();
     }
 }
