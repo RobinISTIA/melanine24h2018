@@ -33,7 +33,7 @@ public class Game {
 		
 		if(nest.getPopulation() + antList.size() < maxAnt && actionExclusive){
 			nest.createAnt(nextAntId);
-			stream.add("NEW_ANT "+nextAntId);
+			stream.add("ANT_NEW "+nextAntId);
 			actionExclusive = false;
 		}		
 		
