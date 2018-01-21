@@ -45,7 +45,6 @@ public class IAMelanin
 	    			case "BEGIN NEST":
 	    				isAnt = false;
 	    				nest = new Nest();
-	    				System.out.println("CREATING SOMETHING");
 	    				break;
 	    			case "END":
 	    				break;
@@ -121,12 +120,14 @@ public class IAMelanin
         	if(isReceiving == true) {
         		if( received.equals("END")) {
             		isReceiving = false;
+            		reponse.add(received);
             		return reponse;
             	}else {
             		reponse.add(received);
             	}
         	}
         	else if( received.equals("BEGIN NEST") || received.equals("BEGIN ANT") ) {
+        		reponse.add(received);
         		isReceiving = true;
         	}
         }
