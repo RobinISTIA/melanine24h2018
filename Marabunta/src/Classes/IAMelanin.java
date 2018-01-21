@@ -58,7 +58,7 @@ public class IAMelanin
     		if(!isAnt)
     			sorties = game.nestAction(nest);
     		else
-    			sorties = game.detailledAntAction(ant, targets);
+    			sorties = game.shortAntAction(ant);
     		
     		for(String sortie : sorties) {
     			System.out.println(sortie);

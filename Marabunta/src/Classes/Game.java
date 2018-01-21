@@ -53,10 +53,13 @@ public class Game {
 	}
 	
 	
-	public String shortAntAction(Ant ant){
+	public ArrayList<String> shortAntAction(Ant ant){
 		
-		String stream = "";
-		return stream +"END";
+		ArrayList<String> stream = new ArrayList<String>();
+		stream.add("BEGIN");
+		stream.add("EXPLORE");
+		stream.add("END");
+		return stream;
 	}
 
 	public ArrayList<String> detailledAntAction(Ant ant, ArrayList<Target> targets){
