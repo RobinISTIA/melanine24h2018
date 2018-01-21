@@ -91,7 +91,7 @@ public class Ant{
 	}
 	
 	public String suicide(){
-		return "SUICIDE"+"\n";
+		return "SUICIDE";
 	}
 	
 	public String eat(int qtt){
