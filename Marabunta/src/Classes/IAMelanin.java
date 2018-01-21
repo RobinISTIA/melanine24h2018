@@ -8,6 +8,7 @@ package Classes;
 
 
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
@@ -37,35 +38,39 @@ public class IAMelanin
     	isAnt = false;
     	while(true){
     		ArrayList<String> entries = recoie(); 
-    		for(String str: entries) {
-    			
-    		    try {
-    		    	FileWriter fichier = new FileWriter("monFichier.txt");
-					fichier.write(str);
-					fichier.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-    		    
-    			/*switch(str) {
-	    			case "BEGIN ANT":
-	    				isAnt = true;
-	    				ant = new Ant();
-	    				targets = new ArrayList<Target>();
-	    				break;
-	    			case "BEGIN NEST":
-	    				isAnt = false;
-	    				nest = new Nest();
-	    				break;
-	    			case "END":
-	    				break;
-	    			default:
-	    				if(isAnt) classifyAnt(str);
-	    				else classifyNest(str);
-	    				break;
-    			}*/
-    		}
+    		
+	    	try {
+	    		File ff=new File("resultat.txt");
+				ff.createNewFile();
+				FileWriter ffw=new FileWriter(ff);
+				for(String str: entries) {
+    		    	ffw.write(str);
+    		    	ffw.write("\n");
+	    		    
+	    			/*switch(str) {
+		    			case "BEGIN ANT":
+		    				isAnt = true;
+		    				ant = new Ant();
+		    				targets = new ArrayList<Target>();
+		    				break;
+		    			case "BEGIN NEST":
+		    				isAnt = false;
+		    				nest = new Nest();
+		    				break;
+		    			case "END":
+		    				break;
+		    			default:
+		    				if(isAnt) classifyAnt(str);
+		    				else classifyNest(str);
+		    				break;
+	    			}*/
+	    		}
+	    		ffw.close();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+	    	
     		
     		/*if(!isAnt)
     			sorties = game.nestAction(nest);
