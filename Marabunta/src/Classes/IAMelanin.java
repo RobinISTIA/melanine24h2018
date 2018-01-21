@@ -62,10 +62,12 @@ public class IAMelanin
     		
     		for(String sortie : sorties) {
     			System.out.println(sortie);
+    			if(sortie.equals("SUICIDE")) {
+    				System.out.println("END");
+    				break;
+    			}
     		}
-            
         }
-         
     }
     
     public static void classifyAnt(String str) {    	
